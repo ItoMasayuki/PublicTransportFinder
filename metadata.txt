@@ -11,6 +11,6 @@ changelog=0.0.1
 tags=timetable,routing
 icon=icon.png
 experimental=True
-homepage=https://github.com/ItoMasayuki/PublicTransportFinder/
+homepage=https://github.com/ItoMasayuki/PublicTransportFinder/wiki
 tracker=https://github.com/ItoMasayuki/PublicTransportFinder/issues
 repository=https://github.com/ItoMasayuki/PublicTransportFinder/
