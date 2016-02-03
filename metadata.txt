@@ -1,16 +1,16 @@
 [general]
 name=PublicTransportFinder
-description=create animations visualizing spatio-temporal data
-version=0.1.1
-about=TimeManager adds time controls to QGIS. Using these time controls, you can animate vector features based on a time attribute. There is also an experimental raster layer support and support for interpolation beween point geometries. You can create animations directly in the map window and export image series. 
+description=Searches timetables to find a route on public transportation with origin and destination set on the QGIS Map Canvas
+version=0.0.1
+about=Public Transportation Finder is
 qgisMinimumVersion=2.3
 author=Masayuki M Ito
 email=m.ito@qu-bit.com
 changelog=0.0.1
-    - Fixed crash on install
+    - Initial release
 tags=timetable,routing
 icon=icon.png
-experimental=False
-homepage=http://anitagraser.com/projects/time-manager/
-tracker=https://github.com/anitagraser/TimeManager/issues
-repository=https://github.com/anitagraser/TimeManager
+experimental=True
+homepage=https://github.com/ItoMasayuki/PublicTransportFinder/
+tracker=https://github.com/ItoMasayuki/PublicTransportFinder/issues
+repository=https://github.com/ItoMasayuki/PublicTransportFinder/
