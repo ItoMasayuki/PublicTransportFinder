@@ -297,6 +297,8 @@ class PublicTransportFinder:
       m = ptn.match(f[self.dlg.cmbTime.currentText()])
       if m:
         tmp_time = (float(m.group(1))*60+float(m.group(2))) /1440.0
+        # 深夜１２時～２時までは２４時から２６時に変換
+        if tmp_time < 0.083333: tmp_time = tmp_time+1
       else:
         QMessageBox.information(None, "DEBUG:", "set time correctly") 
 
