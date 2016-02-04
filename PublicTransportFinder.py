@@ -191,8 +191,8 @@ class PublicTransportFinder:
       self.i_cmbRouteid = flist.index(u"route_id")
     if self.i_cmbCat == 0 and u"cat" in flist:
       self.i_cmbCat = flist.index(u"cat")
-    if self.i_cmbTime == 0 and u"time_seria" in flist:
-      self.i_cmbTime = flist.index(u"time_seria")
+    if self.i_cmbTime == 0 and u"time" in flist:
+      self.i_cmbTime = flist.index(u"time")
     if self.i_cmbCatName == 0 and u"cat_name" in flist:
       self.i_cmbCatName = flist.index(u"cat_name")
     if self.i_cmbRouteName == 0 and u"route_name" in flist:
@@ -220,8 +220,8 @@ class PublicTransportFinder:
       self.i_cmbFromcat = flist.index(u"from_cat")
     if self.i_cmbTocat == 0 and u"to_cat" in flist:
       self.i_cmbTocat = flist.index(u"to_cat")
-    if self.i_cmbTime2 == 0 and u"time_seria" in flist:
-      self.i_cmbTime2 = flist.index(u"time_seria")
+    if self.i_cmbTime2 == 0 and u"time" in flist:
+      self.i_cmbTime2 = flist.index(u"time")
     
     
   def cmbOriginChanged(self):
@@ -244,6 +244,7 @@ class PublicTransportFinder:
 
   def cmbDestinationChanged(self):
     if self.dlg.cmbDestination.currentIndex() == 0:
+      self.dlg.cmbIdDest.clear()
       return
     layers = self.iface.legendInterface().layers()
     lDestination = layers[self.dlg.cmbDestination.currentIndex()-1]
@@ -291,22 +292,38 @@ class PublicTransportFinder:
       routeName = ""
       if self.dlg.cmbRouteName.currentIndex() <> 0:
         routeName = f[self.dlg.cmbRouteName.currentText()]
+
+      ptn = re.compile('(\d+):(\d+)')
+      m = ptn.match(f[self.dlg.cmbTime.currentText()])
+      if m:
+        tmp_time = (float(m.group(1))*60+float(m.group(2))) /1440.0
+      else:
+        QMessageBox.information(None, "DEBUG:", "set time correctly") 
+
       self.timetable.add_timetable( \
         f[self.dlg.cmbRouteid.currentText()], \
         f[self.dlg.cmbCat.currentText()], \
-        f[self.dlg.cmbTime.currentText()], \
+        tmp_time, \
         routeName)
       self.cat_db.add_cat(f[self.dlg.cmbCat.currentText()], \
         f.geometry().asPoint().x(), \
         f.geometry().asPoint().y(), \
         catName)
 
-    #self.myprint("timetable set")
-
     # 乗り換え表の設定
     for f in lTransit.getFeatures ():
-      self.timetable.set_transit( f['from_cat'], f['to_cat'], f['time_seria'])
-    
+      ptn = re.compile('(\d+):(\d+)')
+      m = ptn.match(f[self.dlg.cmbTime2.currentText()])
+      if m:
+        tmp_time = (float(m.group(1))*60+float(m.group(2))) /1440.0
+      else:
+        QMessageBox.information(None, "DEBUG:", "set time correctly") 
+
+      self.timetable.set_transit( \
+        f[self.dlg.cmbFromcat.currentText()], \
+        f[self.dlg.cmbTocat.currentText()], \
+        f[tmp_time])
+
     self.myprint(QCoreApplication.translate('code', "Timetable, Transit table set")+u"\n")
     
     self.i_cmbTimetable   = self.dlg.cmbTimetable.currentIndex()

@@ -39,7 +39,12 @@ class CalculatorManager(QtCore.QObject):
       # 入力された緯度、経度から一定距離内にある駅を抽出する
       dist = 300
       
-      buf = u"%s, %s, %f, %d, " % (o0, d0, start_time, direction)
+      st = int(start_time*3600*24)
+      h=st/3600
+      m=st/60%60
+      s=st%60
+      
+      buf = u"%s, %s, %02d:%02d:%02d, %f, %d, " % (o0, d0, h,m,s, start_time, direction)
 
       found_o, found_d = False, False
       for p,d in cat_db.get_cat(ox, oy, dist).items():
