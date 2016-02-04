@@ -90,7 +90,7 @@ class PublicTransportFinder:
 
   def toggleDock(self):
     self.dock.setVisible(not self.dock.isVisible())
-    self.update_layers()
+#    self.update_layers()
 
   def dockOriginClicked(self):
     QObject.connect(self.clickTool, \
