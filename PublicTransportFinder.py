@@ -324,7 +324,7 @@ class PublicTransportFinder:
       self.timetable.set_transit( \
         f[self.dlg.cmbFromcat.currentText()], \
         f[self.dlg.cmbTocat.currentText()], \
-        f[tmp_time])
+        tmp_time)
 
     self.myprint(QCoreApplication.translate('code', "Timetable, Transit table set")+u"\n")
     
